@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ctext y='96' font-size='96'%3E%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB%3C/text%3E%3C/svg%3E">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pablo Sella Favre | SRE Portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
 </head>
 <body>
     <div class="container">
@@ -16,9 +18,42 @@
         
         <div class="content">
             <header>
-                <a href="Ruta_A_Tu_CV.pdf" class="download-btn" download>
+                <button class="download-btn" id="downloadCVBtn" type="button">
                     <span>[💾] DOWNLOAD_CV.pdf</span>
-                </a>
+                </button>
+                            <!-- Modal para selección de idioma del CV -->
+                            <div id="cvModal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100vw; height:100vh; background:rgba(13,17,23,0.85); align-items:center; justify-content:center;">
+                                <div style="background:var(--card-bg); color:var(--text-main); padding:32px 24px; border-radius:8px; box-shadow:0 4px 24px #000a; min-width:260px; text-align:center;">
+                                    <h2 style="margin-top:0; color:var(--accent); font-size:1.2rem;">Select CV Language</h2>
+                                    <button style="margin:12px 0; width:100%; padding:10px; border-radius:4px; border:1px solid var(--accent); background:var(--bg); color:var(--accent); font-size:1rem; cursor:pointer;" onclick="downloadCV('cv_en.pdf')">English 🇬🇧</button>
+                                    <button style="margin:12px 0; width:100%; padding:10px; border-radius:4px; border:1px solid var(--accent); background:var(--bg); color:var(--accent); font-size:1rem; cursor:pointer;" onclick="downloadCV('cv_es.pdf')">Español 🇨🇱</button>
+                                    <button style="margin-top:18px; width:100%; padding:8px; border-radius:4px; border:none; background:var(--border); color:var(--text-dim); font-size:0.95rem; cursor:pointer;" onclick="closeCVModal()">Cancel</button>
+                                </div>
+                            </div>
+                    <script>
+                    // Mostrar el modal al hacer click en el botón de descarga
+                    document.getElementById('downloadCVBtn').addEventListener('click', function() {
+                        document.getElementById('cvModal').style.display = 'flex';
+                    });
+                    // Descargar el CV seleccionado
+                    function downloadCV(file) {
+                        document.getElementById('cvModal').style.display = 'none';
+                        const link = document.createElement('a');
+                        link.href = file;
+                        link.download = file;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    }
+                    // Cerrar el modal
+                    function closeCVModal() {
+                        document.getElementById('cvModal').style.display = 'none';
+                    }
+                    // Cerrar modal con Escape
+                    document.addEventListener('keydown', function(e) {
+                        if (e.key === 'Escape') closeCVModal();
+                    });
+                    </script>
                 <div class="command">whoami</div>
                 <h1>Pablo Sella Favre</h1>
                 <div class="subtitle">Site Reliability Engineer @ Globant (British Airways)</div>
